@@ -25,15 +25,9 @@ spec:
               name: http
           command:
             - /loadgen
-          readinessProbe:
-            httpGet:
-              port: 8080
-              path: /healthz
-            initialDelaySeconds: 5
-            periodSeconds: 5
-            timeoutSeconds: 1
-            successThreshold: 1
-            failureThreshold: 3
+          env:
+            - name: RPS
+              value: "5"
           resources:
             limits:
               memory: 100Mi
