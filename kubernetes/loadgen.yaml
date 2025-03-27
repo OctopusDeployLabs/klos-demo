@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: loadgen
-          image: ghcr.io/octopusdeploylabs/klos-demo:latest
+          image: ghcr.io/octopusdeploylabs/klos-demo:#{image-version}
           ports:
             - containerPort: 8080
               name: http
@@ -27,8 +27,11 @@ spec:
             - /loadgen
           env:
             - name: RPS
-              value: "5"
+              value: #{loadgen-rps}
           resources:
+            requests:
+              memory: 100Mi
+              cpu: 50m
             limits:
               memory: 100Mi
-              cpu: 500m
+              cpu: 100m

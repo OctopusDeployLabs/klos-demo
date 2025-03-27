@@ -19,12 +19,15 @@ spec:
     spec:
       containers:
         - name: worker
-          image: ghcr.io/octopusdeploylabs/klos-demo:latest
+          image: ghcr.io/octopusdeploylabs/klos-demo:#{image-version}
           ports:
             - containerPort: 8080
               name: http
           command:
             - /worker
+          env:
+            - name: LetTheCeoDoThings
+              value: #{LetTheCeoDoThings}
           readinessProbe:
             httpGet:
               port: 8080
@@ -35,9 +38,12 @@ spec:
             successThreshold: 1
             failureThreshold: 3
           resources:
+            requests:
+              memory: 100Mi
+              cpu: 50m
             limits:
               memory: 100Mi
-              cpu: 500m
+              cpu: 100m
 ---
 apiVersion: v1
 kind: Service
