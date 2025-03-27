@@ -7,7 +7,6 @@ on:
       - v*
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
 jobs:
   docker:
     runs-on: ubuntu-latest
@@ -29,7 +28,7 @@ jobs:
       - name: Get image tag
         id: get_image_tag
         run: |
-          IMAGE_ID=${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}
+          IMAGE_ID=${{ env.REGISTRY }}/${{ github.repository }}
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
           [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
@@ -40,7 +39,7 @@ jobs:
       - name: Build and push image
         uses: docker/build-push-action@v6
         with:
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           push: true
           tags: ${{ steps.get_image_tag.outputs.image_tag }}
           labels: "runnumber=${{ github.run_id }}"

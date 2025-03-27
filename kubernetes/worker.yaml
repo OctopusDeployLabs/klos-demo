@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker-deployment
+  labels:
+    app: klos-demo
+    component: worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: klos-demo
+      component: worker
+  template:
+    metadata:
+      labels:
+        app: klos-demo
+        component: worker
+    spec:
+      containers:
+        - name: worker
+          image: ghcr.io/octopusdeploylabs/klos-demo:latest
+          ports:
+            - containerPort: 8080
+              name: http
+          command:
+            - /worker
+          readinessProbe:
+            httpGet:
+              port: 8080
+              path: /healthz
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 1
+            successThreshold: 1
+            failureThreshold: 3
+          resources:
+            limits:
+              memory: 100Mi
+              cpu: 500m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: worker
+spec:
+  selector:
+    app: klos-demo
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
