@@ -20,7 +20,7 @@ step "deploy-to-kubernetes" {
 
         git_dependencies {
             default_branch = "main"
-            file_path_filters = ["kubernetes/cache.yaml"]
+            file_path_filters = ["kubernetes/worker.yaml"]
             git_credential_type = "Anonymous"
             repository_uri = "https://github.com/OctopusDeployLabs/klos-demo.git"
         }
