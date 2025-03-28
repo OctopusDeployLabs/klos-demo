@@ -1,0 +1,28 @@
+step "deploy-to-kubernetes" {
+    name = "Deploy to Kubernetes"
+    properties = {
+        Octopus.Action.TargetRoles = "kubernetes"
+    }
+
+    action {
+        action_type = "Octopus.KubernetesDeployRawYaml"
+        properties = {
+            Octopus.Action.GitRepository.Source = "External"
+            Octopus.Action.Kubernetes.DeploymentTimeout = "180"
+            Octopus.Action.Kubernetes.ResourceStatusCheck = "True"
+            Octopus.Action.Kubernetes.ServerSideApply.Enabled = "True"
+            Octopus.Action.Kubernetes.ServerSideApply.ForceConflicts = "True"
+            Octopus.Action.KubernetesContainers.CustomResourceYamlFileName = "kubernetes/worker.yaml"
+            Octopus.Action.KubernetesContainers.Namespace = "klosdemo-#{Octopus.Environment.Name | toLower}"
+            Octopus.Action.Script.ScriptSource = "GitRepository"
+        }
+        worker_pool_variable = ""
+
+        git_dependencies {
+            default_branch = "main"
+            file_path_filters = ["kubernetes/cache.yaml"]
+            git_credential_type = "Anonymous"
+            repository_uri = "https://github.com/OctopusDeployLabs/klos-demo.git"
+        }
+    }
+}
