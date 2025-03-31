@@ -1,7 +1,3 @@
 variable "LetTheCeoDoThings" {
     value "\"true\"" {}
-
-    value "\"false\"" {
-        environment = ["production"]
-    }
 }
