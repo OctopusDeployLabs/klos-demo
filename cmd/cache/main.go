@@ -17,7 +17,7 @@ var (
 func main() {
 	go startFillingCache(300)
 
-	loggingHandler := handlers.Logging(logger)
+	loggingHandler := handlers.LoggingWithNoHealth(logger)
 	r := gin.New()
 	r.Use(loggingHandler)
 	r.GET("/healthz", healthHandler)
@@ -41,7 +41,6 @@ func startFillingCache(sizeInMiB int) {
 	rand.New(rand.NewSource(time.Now().UnixNano()))
 	for i := range data {
 		data[i] = byte(rand.Intn(256))
-		time.Sleep(1)
 	}
 
 	logger.Info("Finished allocating memory")
