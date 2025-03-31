@@ -53,6 +53,7 @@ metadata:
 spec:
   selector:
     app: klos-demo
+    component: worker
   ports:
     - protocol: TCP
       port: 80
