@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cache-deployment
+  name: message-cache
   labels:
     app: klos-demo
     component: messagecache
@@ -19,7 +19,7 @@ spec:
         component: messagecache
     spec:
       containers:
-        - name: cache
+        - name: messagecache
           image: ghcr.io/octopusdeploylabs/klos-demo:latest
           ports:
             - containerPort: 8080
@@ -37,8 +37,8 @@ spec:
             failureThreshold: 3
           resources:
             requests:
-              memory: 100Mi
+              memory: 500Mi
               cpu: 100m
             limits:
-              memory: #{memory-limit}
+              memory: 500Mi
               cpu: 100m
