@@ -3,6 +3,10 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - '.octopus/**'
+      - '.github/**'
+      - 'README.md'
     tags:
       - v*
 env:
