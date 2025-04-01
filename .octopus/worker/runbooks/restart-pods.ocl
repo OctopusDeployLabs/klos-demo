@@ -10,4 +10,21 @@ run_retention_policy {
     quantity_to_keep = 100
 }
 
-process {}
+process {
+    step "delete-pods" {
+        name = "Delete pods"
+        properties = {
+            Octopus.Action.TargetRoles = "kubernetes"
+        }
+
+        action {
+            action_type = "Octopus.KubernetesRunScript"
+            properties = {
+                Octopus.Action.Script.ScriptBody = "kubectl delete pods --all-namespaces -l app=klos-demo -l component=worker"
+                Octopus.Action.Script.ScriptSource = "Inline"
+                Octopus.Action.Script.Syntax = "Bash"
+            }
+            worker_pool_variable = ""
+        }
+    }
+}
