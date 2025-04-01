@@ -36,7 +36,7 @@ jobs:
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
           echo "image_tag=${IMAGE_ID}:${VERSION}" >> "$GITHUB_OUTPUT"
-          echo "release_version=$(echo ${VERSION} | cut -dv -f2)" >> "$GITHUB_OUTPUT"
+          echo "release_version=${VERSION}" >> "$GITHUB_OUTPUT"
       - name: Build and push image
         uses: docker/build-push-action@v6
         with:
