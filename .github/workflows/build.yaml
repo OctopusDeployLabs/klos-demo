@@ -47,3 +47,22 @@ jobs:
           push: true
           tags: ${{ steps.get_image_tag.outputs.image_tag }}
           labels: "runnumber=${{ github.run_id }}"
+      - name: Log in to Octopus Deploy 🐙
+        uses: OctopusDeploy/login@v1
+        with:
+          server: https://samples.octopus.app
+          service_account_id: c8bb4846-721d-4199-9c41-0d673156bb35
+
+      - name: Create a worker release in Octopus Deploy 🐙
+        uses: OctopusDeploy/create-release-action@v3
+        with:
+          space: "Live Object Status"
+          project: "Worker"
+          git_commit: ${{ github.event.after || github.event.pull_request.head.sha }}
+
+      - name: Create a cache release in Octopus Deploy 🐙
+        uses: OctopusDeploy/create-release-action@v3
+        with:
+          space: "Live Object Status"
+          project: "Cache"
+          git_commit: ${{ github.event.after || github.event.pull_request.head.sha }}

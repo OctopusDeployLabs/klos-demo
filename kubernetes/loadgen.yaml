@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: loadgen
-          image: ghcr.io/octopusdeploylabs/klos-demo:#{image-version}
+          image: ghcr.io/octopusdeploylabs/klos-demo:latest
           ports:
             - containerPort: 8080
               name: http
