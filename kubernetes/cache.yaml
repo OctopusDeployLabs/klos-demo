@@ -4,19 +4,19 @@ metadata:
   name: cache-deployment
   labels:
     app: klos-demo
-    component: messagecache
+    component: cache
 spec:
   replicas: 1
   revisionHistoryLimit: 0
   selector:
     matchLabels:
       app: klos-demo
-      component: messagecache
+      component: cache
   template:
     metadata:
       labels:
         app: klos-demo
-        component: messagecache
+        component: cache
     spec:
       containers:
         - name: cache
