@@ -20,7 +20,9 @@ process {
         action {
             action_type = "Octopus.KubernetesRunScript"
             properties = {
-                Octopus.Action.Script.ScriptBody = "kubectl delete pods --all-namespaces -l app=klos-demo -l component=worker"
+                Octopus.Action.KubernetesContainers.Namespace = "klosdemo-#{Octopus.Environment.Name}"
+                Octopus.Action.RunOnServer = "false"
+                Octopus.Action.Script.ScriptBody = "kubectl delete pods -l app=klos-demo -l component=worker"
                 Octopus.Action.Script.ScriptSource = "Inline"
                 Octopus.Action.Script.Syntax = "Bash"
             }
