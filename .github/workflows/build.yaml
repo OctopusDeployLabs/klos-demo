@@ -1,8 +1,6 @@
 name: build
 on:
   push:
-    branches:
-      - main
     paths-ignore:
       - '.octopus/**'
       - 'README.md'
@@ -56,11 +54,17 @@ jobs:
         with:
           space: "Live Object Status"
           project: "Worker"
+          git_ref: ${{ (github.ref_type == 'tag' && github.event.repository.default_branch ) || (github.head_ref || github.ref) }}
           git_commit: ${{ github.event.after || github.event.pull_request.head.sha }}
+          release_number: ${{ github.ref_name }}
+          ignore_existing: true
 
       - name: Create a cache release in Octopus Deploy 🐙
         uses: OctopusDeploy/create-release-action@v3
         with:
           space: "Live Object Status"
           project: "Cache"
+          git_ref: ${{ (github.ref_type == 'tag' && github.event.repository.default_branch ) || (github.head_ref || github.ref) }}
           git_commit: ${{ github.event.after || github.event.pull_request.head.sha }}
+          release_number: ${{ github.ref_name }}
+          ignore_existing: true
