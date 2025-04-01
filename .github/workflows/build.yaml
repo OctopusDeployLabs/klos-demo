@@ -56,7 +56,7 @@ jobs:
           project: "Worker"
           git_ref: ${{ (github.ref_type == 'tag' && github.event.repository.default_branch ) || (github.head_ref || github.ref) }}
           git_commit: ${{ github.event.after || github.event.pull_request.head.sha }}
-          release_number: ${{ github.ref_name }}
+          release_number: $(echo ${{ github.ref_name }} | cut -dv -f2)
           ignore_existing: true
 
       - name: Create a cache release in Octopus Deploy 🐙
@@ -66,5 +66,5 @@ jobs:
           project: "Cache"
           git_ref: ${{ (github.ref_type == 'tag' && github.event.repository.default_branch ) || (github.head_ref || github.ref) }}
           git_commit: ${{ github.event.after || github.event.pull_request.head.sha }}
-          release_number: ${{ github.ref_name }}
+          release_number: $(echo ${{ github.ref_name }} | cut -dv -f2)
           ignore_existing: true

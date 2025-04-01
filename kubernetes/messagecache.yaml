@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: messagecache
-          image: ghcr.io/octopusdeploylabs/klos-demo:latest
+          image: ghcr.io/octopusdeploylabs/klos-demo:v#{Octopus.Release.Number}
           ports:
             - containerPort: 8080
               name: http
