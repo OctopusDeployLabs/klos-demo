@@ -28,23 +28,31 @@ func main() {
 		}
 	}
 
-	// Traffic split (percentage of requests to `/ceo`)
-	ceoPct := 5 // default to 5%
-	if pctStr := os.Getenv("CEO_PERCENT"); pctStr != "" {
+	// Traffic split (percentage of requests to `/beverage` endpoint are for an iced coffee)
+	coffeePct := 20 // default to 20%
+	if pctStr := os.Getenv("COFFEE_PERCENT"); pctStr != "" {
 		if parsed, err := strconv.Atoi(pctStr); err == nil && parsed >= 0 && parsed <= 100 {
-			ceoPct = parsed
+			coffeePct = parsed
 		}
 	}
 
-	logger.Info("Starting request sender", slog.String("endpoint", baseURL), slog.Int("ceo_percent", ceoPct))
+	logger.Info("Starting request sender", slog.String("endpoint", baseURL), slog.Int("ceo_percent", coffeePct))
 
 	client := &http.Client{Timeout: 5 * time.Second}
 
 	for {
-		// Decide route
-		route := "/"
-		if rand.Intn(100) < ceoPct {
-			route = "/ceo"
+		// Decide beverage choice
+		beverage := "tea"
+		route := "/beverage"
+		if rand.Intn(100) < coffeePct {
+			beverage = "coffee"
+		}
+
+		// Randomly choose between hot and cold drinks
+		if rand.Intn(2) == 0 {
+			route += "?kind=" + beverage + "&hot=false"
+		} else {
+			route += "?kind=" + beverage + "&hot=true"
 		}
 		url := baseURL + route
 
