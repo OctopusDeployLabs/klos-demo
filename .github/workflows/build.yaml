@@ -59,13 +59,3 @@ jobs:
           git_commit: ${{ github.event.after || github.event.pull_request.head.sha }}
           release_number: ${{ steps.get_image_tag.outputs.release_version }}
           ignore_existing: true
-
-      - name: Create a cache release in Octopus Deploy 🐙
-        uses: OctopusDeploy/create-release-action@v3
-        with:
-          space: "Live Object Status"
-          project: "Cache"
-          git_ref: ${{ (github.ref_type == 'tag' && github.event.repository.default_branch ) || (github.head_ref || github.ref) }}
-          git_commit: ${{ github.event.after || github.event.pull_request.head.sha }}
-          release_number: ${{ steps.get_image_tag.outputs.release_version }}
-          ignore_existing: true
