@@ -62,7 +62,7 @@ func beverageHandler(c *gin.Context) {
 			return
 		} else {
 			// If the beverage is cold brew, use the Cold Brew
-			c.JSON(makeBeverage(beverage, beverageMachines[3]))
+			c.JSON(makeBeverage(beverage, beverageMachines[2]))
 			return
 		}
 	}
