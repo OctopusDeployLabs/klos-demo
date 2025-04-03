@@ -1,7 +1,7 @@
 variable "memory-limit" {
     value "500Mi" {}
 
-    value "500Mi" {
+    value "100Mi" {
         environment = ["development"]
     }
 }
