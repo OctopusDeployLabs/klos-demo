@@ -47,3 +47,42 @@ step "deploy-to-kubernetes" {
         }
     }
 }
+
+step "report-failure" {
+    condition = "Failure"
+    name = "Report failure"
+    properties = {
+        Octopus.Action.TargetRoles = "kubernetes"
+    }
+
+    action {
+        action_type = "Octopus.Script"
+        properties = {
+            Octopus.Action.RunOnServer = "false"
+            Octopus.Action.Script.ScriptBody = "echo :sadpanda:"
+            Octopus.Action.Script.ScriptSource = "Inline"
+            Octopus.Action.Script.Syntax = "PowerShell"
+            OctopusUseBundledTooling = "False"
+        }
+        worker_pool_variable = ""
+    }
+}
+
+step "report-success" {
+    name = "Report success"
+    properties = {
+        Octopus.Action.TargetRoles = "kubernetes"
+    }
+
+    action {
+        action_type = "Octopus.Script"
+        properties = {
+            Octopus.Action.RunOnServer = "false"
+            Octopus.Action.Script.ScriptBody = "echo Yeah!"
+            Octopus.Action.Script.ScriptSource = "Inline"
+            Octopus.Action.Script.Syntax = "PowerShell"
+            OctopusUseBundledTooling = "False"
+        }
+        worker_pool_variable = ""
+    }
+}
