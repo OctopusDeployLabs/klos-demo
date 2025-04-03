@@ -58,7 +58,7 @@ func beverageHandler(c *gin.Context) {
 
 	if beverage.Kind == "coffee" {
 		if beverage.Hot {
-			c.JSON(makeBeverage(beverage, beverageMachines[0]))
+			c.JSON(makeBeverage(beverage, beverageMachines[1]))
 			return
 		} else {
 			// If the beverage is cold brew, use the Cold Brew
