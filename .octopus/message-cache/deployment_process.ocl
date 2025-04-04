@@ -49,7 +49,7 @@ step "deploy-to-kubernetes" {
 
 step "log-failure" {
     condition = "Failure"
-    name = "Log failure"
+    name = "Log failure to Slack"
     properties = {
         Octopus.Action.TargetRoles = "multicloud"
     }
