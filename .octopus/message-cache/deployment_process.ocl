@@ -8,7 +8,7 @@ step "say-hello" {
         action_type = "Octopus.Script"
         properties = {
             Octopus.Action.RunOnServer = "false"
-            Octopus.Action.Script.ScriptBody = "echo G'day Kubecon!"
+            Octopus.Action.Script.ScriptBody = "echo \"G'day Kubecon!\""
             Octopus.Action.Script.ScriptSource = "Inline"
             Octopus.Action.Script.Syntax = "Bash"
             OctopusUseBundledTooling = "False"
