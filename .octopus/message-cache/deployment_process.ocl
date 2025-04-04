@@ -1,3 +1,22 @@
+step "say-hello" {
+    name = "Say hello"
+    properties = {
+        Octopus.Action.TargetRoles = "multicloud"
+    }
+
+    action {
+        action_type = "Octopus.Script"
+        properties = {
+            Octopus.Action.RunOnServer = "false"
+            Octopus.Action.Script.ScriptBody = "echo G'day Kubecon!"
+            Octopus.Action.Script.ScriptSource = "Inline"
+            Octopus.Action.Script.Syntax = "Bash"
+            OctopusUseBundledTooling = "False"
+        }
+        worker_pool_variable = ""
+    }
+}
+
 step "deploy-to-kubernetes" {
     name = "Deploy to Kubernetes"
     properties = {
@@ -25,25 +44,6 @@ step "deploy-to-kubernetes" {
             git_credential_type = "Anonymous"
             repository_uri = "https://github.com/OctopusDeployLabs/klos-demo.git"
         }
-    }
-}
-
-step "say-hello" {
-    name = "Say hello"
-    properties = {
-        Octopus.Action.TargetRoles = "multicloud"
-    }
-
-    action {
-        action_type = "Octopus.Script"
-        properties = {
-            Octopus.Action.RunOnServer = "false"
-            Octopus.Action.Script.ScriptBody = "echo G'day Kubecon!"
-            Octopus.Action.Script.ScriptSource = "Inline"
-            Octopus.Action.Script.Syntax = "Bash"
-            OctopusUseBundledTooling = "False"
-        }
-        worker_pool_variable = ""
     }
 }
 
