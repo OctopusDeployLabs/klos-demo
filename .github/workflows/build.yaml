@@ -47,13 +47,13 @@ jobs:
       - name: Log in to Octopus Deploy 🐙
         uses: OctopusDeploy/login@v1
         with:
-          server: https://samples.octopus.app
-          service_account_id: c8bb4846-721d-4199-9c41-0d673156bb35
+          server: https://klos-demo.testoctopus.app
+          service_account_id: d51496ea-252d-49da-8aa9-4349a3aefcc7
 
       - name: Create a worker release in Octopus Deploy 🐙
         uses: OctopusDeploy/create-release-action@v3
         with:
-          space: "Live Object Status"
+          space: "Default"
           project: "Worker"
           git_ref: ${{ (github.ref_type == 'tag' && github.event.repository.default_branch ) || (github.head_ref || github.ref) }}
           git_commit: ${{ github.event.after || github.event.pull_request.head.sha }}
